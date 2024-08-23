@@ -1,0 +1,22 @@
+import base64
+
+def base64_encode(data):
+    # Encode the input data to bytes, if it is a string
+    if isinstance(data, str):
+        data = data.encode('utf-8')
+    
+    # Encode the data using Base64
+    encoded_data = base64.b64encode(data)
+    
+    # Convert the encoded bytes back to a string
+    return encoded_data.decode('utf-8')
+
+# Example usage
+if __name__ == "__main__":
+    # Input string to be encoded
+    input_string = "21\0c\0postgresql"
+    encoded_string = base64_encode(input_string)
+    
+    print(f"Original String: {input_string}")
+    print(f"Base64 Encoded: {encoded_string}")
+    
