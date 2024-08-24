@@ -1,0 +1,25 @@
+# guacamole_session.py
+
+import guacamole
+
+class GuacamoleSession:
+    _instance = None
+
+    def __new__(cls, base_url, datasource, username, password):
+        if cls._instance is None:
+            print("Creating new session instance")
+            cls._instance = super(GuacamoleSession, cls).__new__(cls)
+            cls._instance.session = guacamole.session(base_url, datasource, username, password)
+        return cls._instance
+
+    def list_users(self):
+        return self.session.list_users()
+
+# Usage example:
+# This should only create one session instance.
+guac_session = GuacamoleSession("https://{guacamole_base_url}", "{datasource}", "{username}", "{password}")
+print(guac_session.list_users())
+
+# Any subsequent instantiations will use the same session object
+another_session = GuacamoleSession("https://{guacamole_base_url}", "{datasource}", "{username}", "{password}")
+print(another_session.list_users())
